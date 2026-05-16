@@ -4,6 +4,7 @@ import { CustomerService } from '../services/customer-service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Customer } from '../model/customer.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -19,6 +20,7 @@ export class Customers implements OnInit {
   constructor(
     private customerService: CustomerService,
     private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,4 +70,10 @@ export class Customers implements OnInit {
       }
     )
   }
+
+
+  handleCustomerAccounts(customer: Customer) {
+    this.router.navigateByUrl("/customer-accounts/"+customer.id,{state :customer});
+  }
+
 }

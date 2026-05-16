@@ -1,18 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './navbar/navbar';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Auth } from './services/auth';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  imports: [Navbar,
-    RouterOutlet,
-  HttpClientModule,
-  ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule],
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
+  constructor(private authService: Auth) {}
+
+  ngOnInit() {
+    this.authService.loadJwtTokeFromLocalStorage();
+  }
+
   protected readonly title = signal('ebanking-frontend');
 }

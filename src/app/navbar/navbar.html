@@ -10,18 +10,20 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/customers">Customers</a>
+          <a class="nav-link" routerLink="/admin/customers">Customers</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/accounts">Accounts</a>
+          <a class="nav-link" routerLink="/admin/accounts">Accounts</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Customers
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/customers">Search customers</a></li>
-            <li><a class="dropdown-item" routerLink="/new-customer">New customer</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/customers">Search customers</a></li>
+            @if (authService.roles.includes('ADMIN')){
+            <li><a class="dropdown-item" routerLink="/admin/new-customer">New customer</a></li>
+              }
             <li><hr class="dropdown-divider"></li>
           </ul>
         </li>
@@ -29,10 +31,20 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      @if (authService.isAuthenticated){
+<ul class="navbar">
+  <li class="nav-item">
+
+
+    <a class="nav-link active bg-white" > {{ this.authService.username }}</a>
+
+  </li>
+  <li>
+    <button (click)="handleLogout()" class="btn btn-success">Logout</button>
+  </li>
+
+</ul>
+      }
     </div>
   </div>
 </nav>
